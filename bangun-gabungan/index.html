@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Bangun Gabungan — Lab Bangun Ruang</title>
+<link rel="stylesheet" href="../assets/lab.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="back" href="../index.html">‹ Lab Bangun Ruang</a>
+  <div class="brand">🏠 Lab <b>Bangun Gabungan</b></div>
+  <div class="sub">rumah · roket · tangki</div>
+</header>
+
+<nav class="stepper" id="stepper">
+  <button class="step active" data-t="1"><span class="n">1</span><span class="t">Prediksi<small>Memahami · Berkesadaran</small></span></button>
+  <button class="step" data-t="2" disabled><span class="n">2</span><span class="t">Eksperimen<small>Memahami · Menggembirakan</small></span></button>
+  <button class="step" data-t="3" disabled><span class="n">3</span><span class="t">Simpulkan<small>Memahami · Bermakna</small></span></button>
+  <button class="step" data-t="4" disabled><span class="n">4</span><span class="t">Latihan<small>Mengaplikasi</small></span></button>
+  <button class="step" data-t="5" disabled><span class="n">5</span><span class="t">Refleksi<small>Merefleksi</small></span></button>
+</nav>
+
+<main>
+<!-- ============ TAHAP 1 : PREDIKSI ============ -->
+<section class="tahap active" id="tahap1">
+  <div class="card">
+    <span class="badge understand">Tahap 1 · Memahami</span>
+    <h2>Buat dugaanmu dulu!</h2>
+    <p class="lead">Bangun gabungan = dua (atau lebih) bangun ruang yang ditempel menjadi satu.
+    Sebelum merakit dan menghitung, buat dugaanmu — tidak ada jawaban salah di tahap ini.</p>
+  </div>
+  <div class="card">
+    <h3>Dugaan 1 — Luas permukaan</h3>
+    <p>Balok ditempeli kubus pada salah satu sisinya.<br>
+    <b>"Luas permukaan gabungan = jumlah kedua luas permukaan."</b></p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="p1" value="benar"><span class="big">Benar</span></label>
+      <label class="opt"><input type="radio" name="p1" value="salah"><span class="big">Salah</span></label>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Dugaan 2 — Volume</h3>
+    <p>Balok ditempeli kubus pada salah satu sisinya.<br>
+    <b>"Volume gabungan = jumlah kedua volume."</b></p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="p2" value="benar"><span class="big">Benar</span></label>
+      <label class="opt"><input type="radio" name="p2" value="salah"><span class="big">Salah</span></label>
+    </div>
+  </div>
+  <div class="card">
+    <button class="btn btn-primary" id="btnPrediksi">Simpan dugaanku &amp; mulai eksperimen →</button>
+    <div class="hint">Dugaanmu akan dibandingkan dengan hasil eksperimen di Tahap 3.</div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 2 : EKSPERIMEN ============ -->
+<section class="tahap" id="tahap2">
+  <div class="card">
+    <span class="badge understand">Tahap 2 · Memahami</span>
+    <h2>Eksperimen Bangun Gabungan</h2>
+    <p class="lead">Rakit tiga bangun gabungan dalam 3D, tandai sisi yang menempel, lalu bedah hitungannya. Seret kanvas untuk memutar.</p>
+    <div class="exp-pills" id="presetPills">
+      <button class="pill active" data-p="rumah">🏠 Rumah</button>
+      <button class="pill" data-p="roket">🚀 Roket</button>
+      <button class="pill" data-p="tangki">🛢️ Tangki</button>
+    </div>
+    <div class="exp-pills" id="expPills">
+      <button class="pill active" data-e="a">A · Rakit &amp; amati</button>
+      <button class="pill" data-e="b">B · Bedah hitungan</button>
+    </div>
+  </div>
+  <div class="lab-grid">
+    <div class="canvas-wrap">
+      <div class="canvas-tag" id="canvasTag">Rumah · rakit &amp; amati</div>
+      <canvas id="c3d"></canvas>
+      <div class="canvas-hint">seret untuk memutar · cubit/scroll untuk zoom</div>
+    </div>
+    <div>
+      <div class="card" id="panelA">
+        <h3>A · Rakit &amp; amati</h3>
+        <p id="presetDesc"></p>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btnMark">🔴 Tandai sisi yang menempel</button>
+        </div>
+        <div id="volBox" style="margin-top:12px"></div>
+        <div class="hint">Volume gabungan = jumlah volume tiap bagian. Tempelan <b>tidak</b> mengurangi volume — yang berkurang hanya luas permukaan!</div>
+      </div>
+      <div class="card" id="panelB" style="display:none">
+        <h3>B · Bedah hitungan <span class="score-chip" id="bedahChip" style="display:none">✓ selesai</span></h3>
+        <p>Preset: <b id="bedahPreset">Rumah</b></p>
+        <div id="bedahBox"></div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" id="btnExpDone" disabled>Lanjut ke Simpulan →</button>
+        <div class="hint" id="expHint">Lihat ketiga preset di A, lalu selesaikan bedah hitungan di B untuk membuka Tahap 3.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 3 : SIMPULKAN ============ -->
+<section class="tahap" id="tahap3">
+  <div class="card">
+    <span class="badge understand">Tahap 3 · Memahami</span>
+    <h2>Dugaanmu vs Kenyataan</h2>
+    <div id="vsBox"></div>
+  </div>
+  <div class="card">
+    <h3>📐 Konsep yang kita temukan</h3>
+    <div class="formula">V gabungan = <span class="gold">V₁ + V₂ + …</span> &nbsp;·&nbsp; tempelan tidak mengurangi volume</div>
+    <div class="formula">L gabungan = <span class="gold">L₁ + L₂ − 2 × L tempelan</span></div>
+    <div class="eval"><strong>⚠️ Jebakan klasik!</strong> Sisi yang menempel <b>hilang dari pandangan</b> — satu sisi dari tiap bangun.
+    Karena itu luas tempelan dikurangi <b>dua kali</b>. Inilah kesalahan paling umum saat menghitung luas bangun gabungan!</div>
+  </div>
+  <div class="card">
+    <h3>🧠 Cek pemahaman cepat</h3>
+    <div class="quiz-q">
+      <p><b>1.</b> "Sisi yang menempel tetap dihitung dalam luas permukaan gabungan."</p>
+      <div class="opts"><label class="opt"><input type="radio" name="cek1" value="benar"><span class="big">Benar</span></label><label class="opt"><input type="radio" name="cek1" value="salah"><span class="big">Salah</span></label></div>
+      <div class="fb" id="fb-cek1"></div>
+    </div>
+    <div class="quiz-q">
+      <p><b>2.</b> Kubus 2×2×2 ditempel kubus 2×2×2. Luas yang harus <b>dikurangi</b> dari jumlah kedua luas permukaan adalah …</p>
+      <div class="opts"><label class="opt"><input type="radio" name="cek2" value="8"><span class="big">8</span></label><label class="opt"><input type="radio" name="cek2" value="16"><span class="big">16</span></label><label class="opt"><input type="radio" name="cek2" value="4"><span class="big">4</span></label></div>
+      <div class="fb" id="fb-cek2"></div>
+    </div>
+    <button class="btn btn-primary" id="btnCek">Periksa &amp; lanjut ke Latihan →</button>
+  </div>
+</section>
+
+<!-- ============ TAHAP 4 : LATIHAN ============ -->
+<section class="tahap" id="tahap4">
+  <div class="card">
+    <span class="badge apply">Tahap 4 · Mengaplikasi</span>
+    <h2>Terapkan pada soal</h2>
+    <p class="lead">Nilai: <span class="score-chip" id="scoreChip">0 / 3</span></p>
+  </div>
+  <div class="quiz-q">
+    <p><b>1. Volume gabungan.</b> Dua kubus berukuran 4×4×4 ditempel pada salah satu sisinya. Volume gabungannya = …</p>
+    <input type="number" id="q1" placeholder="jawaban"> <button class="btn btn-ghost" data-check="1">Cek</button>
+    <div class="fb" id="fb-q1"></div>
+  </div>
+  <div class="quiz-q">
+    <p><b>2. Luas yang dikurangi.</b> Pada soal nomor 1, luas yang harus <b>dikurangi</b> dari jumlah kedua luas permukaan adalah …</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="rq2" value="16"><span class="big">16</span></label>
+      <label class="opt"><input type="radio" name="rq2" value="32"><span class="big">32</span></label>
+      <label class="opt"><input type="radio" name="rq2" value="64"><span class="big">64</span></label>
+    </div>
+    <button class="btn btn-ghost" data-check="2">Cek</button>
+    <div class="fb" id="fb-q2"></div>
+  </div>
+  <div class="quiz-q">
+    <p><b>3. Rumah mini.</b> Balok 5×3×2 (LP = 62) ditempeli limas beralas 5×3 (LP limas = 55). Luas permukaan gabungannya = …</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="rq3" value="72"><span class="big">72</span></label>
+      <label class="opt"><input type="radio" name="rq3" value="87"><span class="big">87</span></label>
+      <label class="opt"><input type="radio" name="rq3" value="102"><span class="big">102</span></label>
+    </div>
+    <button class="btn btn-ghost" data-check="3">Cek</button>
+    <div class="fb" id="fb-q3"></div>
+  </div>
+  <div class="card">
+    <button class="btn btn-primary" id="btnLatDone" disabled>Lanjut ke Refleksi →</button>
+    <div class="hint">Jawab minimal 2 dari 3 soal dengan benar untuk membuka Tahap 5.</div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 5 : REFLEKSI ============ -->
+<section class="tahap" id="tahap5">
+  <div class="card">
+    <span class="badge reflect">Tahap 5 · Merefleksi</span>
+    <h2>Apa yang berubah dalam pikiranmu?</h2>
+    <div id="refleksiVs"></div>
+  </div>
+  <div class="card">
+    <h3>✍️ Simpulan dengan bahasamu sendiri</h3>
+    <p>Mengapa volume gabungan tinggal dijumlah, tetapi luas permukaan gabungan harus dikurangi?</p>
+    <textarea id="refTeks" placeholder="Contoh: Volume tinggal dijumlah karena … sedangkan luas permukaan …"></textarea>
+  </div>
+  <div class="card">
+    <h3>💛 Seberapa menggembirakan lab ini?</h3>
+    <div class="stars" id="stars"><span data-s="1">★</span><span data-s="2">★</span><span data-s="3">★</span><span data-s="4">★</span><span data-s="5">★</span></div>
+    <div class="btn-row"><button class="btn btn-primary" id="btnFinish">Selesaikan lab 🎉</button></div>
+  </div>
+  <div class="card" id="finishCard" style="display:none">
+    <h3>🎓 Lab selesai!</h3>
+    <div id="finishSum"></div>
+  </div>
+</section>
+</main>
+
+<footer>Lab Bangun Ruang · pembelajaran mendalam: berkesadaran, bermakna, menggembirakan</footer>
+
+<script src="../assets/vendor/three.min.js"></script>
+<script src="../assets/core.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

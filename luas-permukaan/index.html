@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Luas Permukaan — Lab Bangun Ruang</title>
+<link rel="stylesheet" href="../assets/lab.css">
+<style>
+.shape-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.steps{margin:10px 0;padding-left:22px}
+.steps li{margin:6px 0}
+.dim-row{margin:10px 0}
+.dim-row p{margin:6px 0 2px}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="back" href="../index.html">‹ Lab Bangun Ruang</a>
+  <div class="brand">📐 Lab <b>Luas Permukaan</b></div>
+  <div class="sub">kubus · balok · prisma · limas</div>
+</header>
+
+<nav class="stepper" id="stepper">
+  <button class="step active" data-t="1"><span class="n">1</span><span class="t">Prediksi<small>Memahami · Berkesadaran</small></span></button>
+  <button class="step" data-t="2" disabled><span class="n">2</span><span class="t">Eksperimen<small>Memahami · Menggembirakan</small></span></button>
+  <button class="step" data-t="3" disabled><span class="n">3</span><span class="t">Simpulkan<small>Memahami · Bermakna</small></span></button>
+  <button class="step" data-t="4" disabled><span class="n">4</span><span class="t">Latihan<small>Mengaplikasi</small></span></button>
+  <button class="step" data-t="5" disabled><span class="n">5</span><span class="t">Refleksi<small>Merefleksi</small></span></button>
+</nav>
+
+<main>
+<!-- ============ TAHAP 1 : PREDIKSI ============ -->
+<section class="tahap active" id="tahap1">
+  <div class="card">
+    <span class="badge understand">Tahap 1 · Memahami</span>
+    <h2>Buat dugaanmu dulu!</h2>
+    <p class="lead">Luas permukaan adalah <b>total luas semua sisi</b> bangun ruang.
+    Cara paling jujur menemukannya: buka jaringnya, lalu hitung petaknya.
+    Sebelum bereksperimen, buat dugaanmu — tidak ada jawaban salah di tahap ini.</p>
+  </div>
+  <div class="card">
+    <h3>Dugaan 1 — Petak jaring kubus</h3>
+    <p>Sebuah kubus dengan rusuk <b>s = 3</b> dibuka jaring-jaringnya.
+    Menurutmu, ada berapa <b>petak satuan</b> pada jaring itu?</p>
+    <div class="opts" id="pred1">
+      <label class="opt"><input type="radio" name="p1" value="18"><span class="big">18</span> petak</label>
+      <label class="opt"><input type="radio" name="p1" value="27"><span class="big">27</span> petak</label>
+      <label class="opt"><input type="radio" name="p1" value="54"><span class="big">54</span> petak</label>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Dugaan 2 — Luas permukaan balok</h3>
+    <p>Balok berukuran <b>4 × 3 × 2</b>. Menurut dugaanmu, luas permukaannya … satuan luas.</p>
+    <div class="opts" id="pred2">
+      <label class="opt"><input type="radio" name="p2" value="26"><span class="big">26</span></label>
+      <label class="opt"><input type="radio" name="p2" value="52"><span class="big">52</span></label>
+      <label class="opt"><input type="radio" name="p2" value="104"><span class="big">104</span></label>
+    </div>
+  </div>
+  <div class="card">
+    <button class="btn btn-primary" id="btnPrediksi">Simpan dugaanku &amp; mulai eksperimen →</button>
+    <div class="hint">Dugaanmu akan dibandingkan dengan hasil eksperimen di Tahap 3.</div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 2 : EKSPERIMEN ============ -->
+<section class="tahap" id="tahap2">
+  <div class="card">
+    <span class="badge understand">Tahap 2 · Memahami</span>
+    <h2>Eksperimen Luas Permukaan</h2>
+    <p class="lead">Dua eksperimen menantimu. Seret kanvas 3D untuk memutar sudut pandang.</p>
+    <div class="exp-pills" id="expPills">
+      <button class="pill active" data-e="a">A · Hitung petak</button>
+      <button class="pill" data-e="b">B · Bangun rumusnya</button>
+    </div>
+  </div>
+  <div class="lab-grid">
+    <div class="canvas-wrap">
+      <div class="canvas-tag" id="canvasTag">Hitung petak</div>
+      <canvas id="c3d"></canvas>
+      <div class="canvas-hint">seret untuk memutar · cubit/scroll untuk zoom</div>
+    </div>
+    <div>
+      <div class="card" id="panelA">
+        <h3>A · Hitung petak satuan <span class="score-chip" id="chipA">belum selesai</span></h3>
+        <div class="shape-pills" id="dimPills">
+          <button class="pill active" data-k="kubus">Kubus</button>
+          <button class="pill" data-k="balok">Balok</button>
+        </div>
+        <div id="dimKubus" class="dim-row">
+          <p>Rusuk kubus (s): <b id="sVal">3</b></p>
+          <input type="range" id="rgS" min="1" max="4" value="3">
+        </div>
+        <div id="dimBalok" class="dim-row" style="display:none">
+          <p>Panjang (p): <b id="pVal">4</b></p>
+          <input type="range" id="rgP" min="1" max="5" value="4">
+          <p>Lebar (l): <b id="lVal">3</b></p>
+          <input type="range" id="rgL" min="1" max="5" value="3">
+          <p>Tinggi (t): <b id="tVal">2</b></p>
+          <input type="range" id="rgT" min="1" max="5" value="2">
+        </div>
+        <p>Jaring datar di kanvas sudah <b>berpetak satuan</b>. Hitung semua petaknya, lalu tulis jawabanmu:</p>
+        <div class="btn-row" style="align-items:center">
+          <input type="number" id="ansA" placeholder="jumlah petak" min="1">
+          <button class="btn btn-primary" id="btnCheckA">Cek</button>
+        </div>
+        <div class="eval" id="evalA" style="display:none"><strong id="evalAT"></strong> <span id="evalAX"></span></div>
+      </div>
+      <div class="card" id="panelB" style="display:none">
+        <h3>B · Bangun rumusnya <span class="score-chip" id="chipB">dilihat 0 / 4</span></h3>
+        <div class="shape-pills" id="shapePills">
+          <button class="pill active" data-k="kubus">Kubus</button>
+          <button class="pill" data-k="balok">Balok</button>
+          <button class="pill" data-k="prisma">Prisma</button>
+          <button class="pill" data-k="limas">Limas</button>
+        </div>
+        <div id="formulaCard"></div>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" id="btnExpDone" disabled>Lanjut ke Simpulan →</button>
+        <div class="hint" id="expHint">Selesaikan kedua eksperimen (A: jawab benar 1×, B: lihat keempat bangun) untuk membuka Tahap 3.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 3 : SIMPULKAN ============ -->
+<section class="tahap" id="tahap3">
+  <div class="card">
+    <span class="badge understand">Tahap 3 · Memahami</span>
+    <h2>Dugaanmu vs Kenyataan</h2>
+    <div id="vsBox"></div>
+  </div>
+  <div class="card">
+    <h3>📐 Konsep yang kita temukan</h3>
+    <div class="formula">Luas permukaan = <span class="gold">luas jaring-jaringnya</span></div>
+    <div class="kv"><span>Kubus: 6 sisi kongruen</span><b>L = 6 × s²</b></div>
+    <div class="kv"><span>Balok: 3 pasang sisi</span><b>L = 2 × (pl + pt + lt)</b></div>
+    <div class="kv"><span>Cara menemukan</span><b>buka jaringnya → hitung luas tiap sisi → jumlahkan</b></div>
+  </div>
+  <div class="card">
+    <h3>🧠 Cek pemahaman cepat</h3>
+    <div class="quiz-q">
+      <p><b>1.</b> “Luas permukaan suatu bangun ruang sama dengan luas jaring-jaringnya.”</p>
+      <div class="opts"><label class="opt"><input type="radio" name="cek1" value="benar"><span class="big">Benar</span></label><label class="opt"><input type="radio" name="cek1" value="salah"><span class="big">Salah</span></label></div>
+      <div class="fb" id="fb-cek1"></div>
+    </div>
+    <div class="quiz-q">
+      <p><b>2.</b> Kubus dengan rusuk s = 2 memiliki luas permukaan … satuan luas.</p>
+      <div class="opts"><label class="opt"><input type="radio" name="cek2" value="8"><span class="big">8</span></label><label class="opt"><input type="radio" name="cek2" value="12"><span class="big">12</span></label><label class="opt"><input type="radio" name="cek2" value="24"><span class="big">24</span></label></div>
+      <div class="fb" id="fb-cek2"></div>
+    </div>
+    <button class="btn btn-primary" id="btnCek">Periksa &amp; lanjut ke Latihan →</button>
+  </div>
+</section>
+
+<!-- ============ TAHAP 4 : LATIHAN ============ -->
+<section class="tahap" id="tahap4">
+  <div class="card">
+    <span class="badge apply">Tahap 4 · Mengaplikasi</span>
+    <h2>Terapkan rumus temuanmu</h2>
+    <p class="lead">Gunakan rumus yang kamu bangun di Tahap 2. Nilai: <span class="score-chip" id="scoreChip">0 / 3</span></p>
+  </div>
+  <div class="quiz-q">
+    <p><b>1. Kubus.</b> Sebuah kubus memiliki rusuk s = 5. Luas permukaannya = … satuan luas.</p>
+    <input type="number" id="q1" placeholder="jawaban" min="1"> <button class="btn btn-ghost" data-check="1">Cek</button>
+    <div class="fb" id="fb-q1"></div>
+  </div>
+  <div class="quiz-q">
+    <p><b>2. Balok.</b> Sebuah balok berukuran 6 × 4 × 3. Luas permukaannya = … satuan luas.</p>
+    <input type="number" id="q2" placeholder="jawaban" min="1"> <button class="btn btn-ghost" data-check="2">Cek</button>
+    <div class="fb" id="fb-q2"></div>
+  </div>
+  <div class="quiz-q">
+    <p><b>3. Prisma segitiga.</b> Alasnya segitiga siku-siku 3-4-5, panjang prisma 10.
+    Luas permukaan = 2×6 + (3+4+5)×10 = …</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="rq3" value="120"><span class="big">120</span></label>
+      <label class="opt"><input type="radio" name="rq3" value="132"><span class="big">132</span></label>
+      <label class="opt"><input type="radio" name="rq3" value="144"><span class="big">144</span></label>
+    </div>
+    <button class="btn btn-ghost" data-check="3">Cek</button>
+    <div class="fb" id="fb-q3"></div>
+  </div>
+  <div class="card">
+    <button class="btn btn-primary" id="btnLatDone" disabled>Lanjut ke Refleksi →</button>
+    <div class="hint">Jawab minimal 2 dari 3 soal dengan benar untuk membuka Tahap 5.</div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 5 : REFLEKSI ============ -->
+<section class="tahap" id="tahap5">
+  <div class="card">
+    <span class="badge reflect">Tahap 5 · Merefleksi</span>
+    <h2>Apa yang berubah dalam pikiranmu?</h2>
+    <div id="refleksiVs"></div>
+  </div>
+  <div class="card">
+    <h3>✍️ Simpulan dengan bahasamu sendiri</h3>
+    <p>Jelaskan: apa itu luas permukaan, dan bagaimana cara menemukannya?</p>
+    <textarea id="refTeks" placeholder="Contoh: Luas permukaan adalah …"></textarea>
+  </div>
+  <div class="card">
+    <h3>💛 Seberapa menggembirakan lab ini?</h3>
+    <div class="stars" id="stars"><span data-s="1">★</span><span data-s="2">★</span><span data-s="3">★</span><span data-s="4">★</span><span data-s="5">★</span></div>
+    <div class="btn-row"><button class="btn btn-primary" id="btnFinish">Selesaikan lab 🎉</button></div>
+  </div>
+  <div class="card" id="finishCard" style="display:none">
+    <h3>🎓 Lab selesai!</h3>
+    <div id="finishSum"></div>
+  </div>
+</section>
+</main>
+
+<footer>Lab Bangun Ruang · pembelajaran mendalam: berkesadaran, bermakna, menggembirakan</footer>
+
+<script src="../assets/vendor/three.min.js"></script>
+<script src="../assets/core.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

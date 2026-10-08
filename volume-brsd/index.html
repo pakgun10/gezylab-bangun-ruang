@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Volume BRSD — Lab Bangun Ruang</title>
+<link rel="stylesheet" href="../assets/lab.css">
+</head>
+<body>
+
+<header class="topbar">
+  <a class="back" href="../index.html">‹ Lab Bangun Ruang</a>
+  <div class="brand">🧊 Lab <b>Volume BRSD</b></div>
+  <div class="sub">balok · prisma · limas</div>
+</header>
+
+<nav class="stepper" id="stepper">
+  <button class="step active" data-t="1"><span class="n">1</span><span class="t">Prediksi<small>Memahami · Berkesadaran</small></span></button>
+  <button class="step" data-t="2" disabled><span class="n">2</span><span class="t">Eksperimen<small>Memahami · Menggembirakan</small></span></button>
+  <button class="step" data-t="3" disabled><span class="n">3</span><span class="t">Simpulkan<small>Memahami · Bermakna</small></span></button>
+  <button class="step" data-t="4" disabled><span class="n">4</span><span class="t">Latihan<small>Mengaplikasi</small></span></button>
+  <button class="step" data-t="5" disabled><span class="n">5</span><span class="t">Refleksi<small>Merefleksi</small></span></button>
+</nav>
+
+<main>
+<!-- ============ TAHAP 1 : PREDIKSI ============ -->
+<section class="tahap active" id="tahap1">
+  <div class="card">
+    <span class="badge understand">Tahap 1 · Memahami</span>
+    <h2>Buat dugaanmu dulu!</h2>
+    <p class="lead">Sebelum menyentuh alat eksperimen, tuliskan dugaanmu. Tidak ada jawaban salah di tahap ini —
+    yang penting <b>berani menduga</b>.</p>
+  </div>
+
+  <div class="card">
+    <h3>Dugaan 1 — Kubus satuan dalam balok</h3>
+    <div class="diagram">
+      <svg width="150" height="122" viewBox="0 0 150 122">
+        <g fill="#dbeafe" stroke="#3b82f6" stroke-width="2">
+          <rect x="10" y="10" width="30" height="30"/><rect x="40" y="10" width="30" height="30"/><rect x="70" y="10" width="30" height="30"/><rect x="100" y="10" width="30" height="30"/>
+          <rect x="10" y="40" width="30" height="30"/><rect x="40" y="40" width="30" height="30"/><rect x="70" y="40" width="30" height="30"/><rect x="100" y="40" width="30" height="30"/>
+          <rect x="10" y="70" width="30" height="30"/><rect x="40" y="70" width="30" height="30"/><rect x="70" y="70" width="30" height="30"/><rect x="100" y="70" width="30" height="30"/>
+        </g>
+        <text x="75" y="114" text-anchor="middle" font-size="11" fill="#6b7280">1 lapis = 12 kubus</text>
+      </svg>
+      <div style="font-size:1.6rem;color:#9ca3af">×2 lapis</div>
+    </div>
+    <p>Balok berukuran <b>4 × 3 × 2</b> diisi kubus satuan 1 × 1 × 1. Menurutmu, <b>berapa kubus</b> yang muat?</p>
+    <div class="opts" id="pred1">
+      <label class="opt"><input type="radio" name="p1" value="24"><span class="big">24</span> kubus</label>
+      <label class="opt"><input type="radio" name="p1" value="26"><span class="big">26</span> kubus</label>
+      <label class="opt"><input type="radio" name="p1" value="29"><span class="big">29</span> kubus</label>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Dugaan 2 — Prisma vs balok</h3>
+    <div class="diagram">
+      <svg width="170" height="110" viewBox="0 0 170 110">
+        <rect x="10" y="15" width="120" height="80" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+        <line x1="10" y1="95" x2="130" y2="15" stroke="#dc2626" stroke-width="2" stroke-dasharray="6,4"/>
+        <text x="70" y="110" text-anchor="middle" font-size="11" fill="#6b7280">balok dibelah diagonal</text>
+      </svg>
+    </div>
+    <p>Prisma segitiga siku-siku adalah … dari balok yang seukuran dengannya.</p>
+    <div class="opts" id="pred2">
+      <label class="opt"><input type="radio" name="p2" value="setengah"><span class="big">½</span> Setengah balok</label>
+      <label class="opt"><input type="radio" name="p2" value="sepertiga"><span class="big">⅓</span> Sepertiga balok</label>
+      <label class="opt"><input type="radio" name="p2" value="sama"><span class="big">=</span> Sama dengan balok</label>
+    </div>
+  </div>
+
+  <div class="card">
+    <button class="btn btn-primary" id="btnPrediksi">Simpan dugaanku &amp; mulai eksperimen →</button>
+    <div class="hint">Dugaanmu disimpan dan akan dibandingkan dengan hasil eksperimen di Tahap 3.</div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 2 : EKSPERIMEN ============ -->
+<section class="tahap" id="tahap2">
+  <div class="card">
+    <span class="badge understand">Tahap 2 · Memahami</span>
+    <h2>Eksperimen 3D</h2>
+    <p class="lead">Uji dugaanmu lewat tiga eksperimen. Seret kanvas untuk memutar sudut pandang.</p>
+    <div class="exp-pills" id="expPills">
+      <button class="pill active" data-e="a">A · Kubus satuan</button>
+      <button class="pill" data-e="b">B · Prisma = ½ balok</button>
+      <button class="pill" data-e="c">C · Tuang limas → prisma</button>
+    </div>
+  </div>
+
+  <div class="lab-grid">
+    <div class="canvas-wrap">
+      <div class="canvas-tag" id="canvasTag">Eksperimen A</div>
+      <canvas id="c3d"></canvas>
+      <div class="canvas-hint">seret untuk memutar · cubit/scroll untuk zoom</div>
+    </div>
+    <div>
+      <div class="card" id="panelA">
+        <h3>A · Berapa kubus satuan mengisi balok?</h3>
+        <p>Geser ukuran balok, lalu amati kubus satuannya:</p>
+        <div class="kv"><span>Panjang (p)</span><b id="pVal">4</b></div>
+        <input type="range" id="rngP" min="1" max="5" value="4">
+        <div class="kv"><span>Lebar (l)</span><b id="lVal">3</b></div>
+        <input type="range" id="rngL" min="1" max="4" value="3">
+        <div class="kv"><span>Tinggi (t)</span><b id="tVal">2</b></div>
+        <input type="range" id="rngT" min="1" max="4" value="2">
+        <div class="kv"><span>Kubus satuan terisi</span><b id="cubeCount">24</b></div>
+        <div class="formula">V = <span class="gold">p × l × t</span><br><span class="gold" id="formulaV">4 × 3 × 2 = 24</span> kubus satuan</div>
+        <button class="btn btn-ghost" id="btnADone">Saya paham, lanjut →</button>
+      </div>
+
+      <div class="card" id="panelB" style="display:none">
+        <h3>B · Prisma segitiga = ½ balok?</h3>
+        <p>Balok dibelah bidang diagonal menjadi <b>2 prisma segitiga siku-siku yang kongruen</b>. Geser untuk membelahnya:</p>
+        <input type="range" id="rngBelah" min="0" max="100" value="0">
+        <div class="kv"><span>Terbelah</span><b id="belahPct">0%</b></div>
+        <div class="formula">2 prisma kongruen = 1 balok<br>→ V prisma = <span class="gold">½ × p × l × t</span></div>
+        <div class="hint" id="belahNote">Geser sampai ≥ 80% untuk menuntaskan eksperimen ini.</div>
+      </div>
+
+      <div class="card" id="panelC" style="display:none">
+        <h3>C · Berapa tuangan limas memenuhi prisma?</h3>
+        <p>Limas dan prisma beralas &amp; bertinggi <b>sama</b> (alas 4 × 4, t = 6). Tekan <b>Tuang</b> dan amati!</p>
+        <button class="btn btn-primary pulse" id="btnPourC">🫗 Tuang limas ke prisma</button>
+        <button class="btn btn-ghost" id="btnResetC">Ulangi</button>
+        <div class="kv" style="margin-top:12px"><span>Tuangan ke-</span><b id="pourCount">0</b></div>
+        <div class="eval" id="evalC"><strong>Evaluasi:</strong> <span id="evalCText">Tekan “Tuang” untuk menuang isi limas yang pertama.</span></div>
+      </div>
+
+      <div class="card">
+        <button class="btn btn-primary" id="btnExpDone" disabled>Lanjut ke Simpulan →</button>
+        <div class="hint" id="expHint">Selesaikan ketiga eksperimen (A: tekan “Saya paham”, B: geser ≥ 80%, C: 3 tuangan sampai penuh) untuk membuka Tahap 3.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 3 : SIMPULKAN ============ -->
+<section class="tahap" id="tahap3">
+  <div class="card">
+    <span class="badge understand">Tahap 3 · Memahami</span>
+    <h2>Dugaanmu vs Kenyataan</h2>
+    <div id="vsBox"></div>
+  </div>
+
+  <div class="card">
+    <h3>📐 Rumus yang kita temukan</h3>
+    <div class="formula">Balok: V = <span class="gold">p × l × t</span> &nbsp;·&nbsp; dari menghitung kubus satuan (Eksperimen A)</div>
+    <div class="formula">Prisma: 2 prisma = 1 balok → V = <span class="gold">½ × p × l × t</span> = <span class="gold">L<sub>alas</sub> × t</span></div>
+    <div class="formula">Limas: 3 tuangan = 1 prisma → V = <span class="gold">⅓ × L<sub>alas</sub> × t</span></div>
+    <div class="hint">Perhatikan polanya: prisma itu <b>setengah</b> balok, limas itu <b>sepertiga</b> prisma — semuanya “keluarga balok”.</div>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Cek pemahaman cepat</h3>
+    <div class="quiz-q">
+      <p><b>1.</b> Jika panjang balok digandakan (lebar dan tinggi tetap), volumenya menjadi …</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="cek1" value="benar"><span class="big">Benar:</span><span>ikut terganda (2× lipat)</span></label>
+        <label class="opt"><input type="radio" name="cek1" value="salah"><span class="big">Salah:</span><span>tetap sama</span></label>
+      </div>
+      <div class="fb" id="fb-cek1"></div>
+    </div>
+    <div class="quiz-q">
+      <p><b>2.</b> Limas yang alas dan tingginya sama dengan sebuah prisma memiliki volume ⅓ volume prisma tersebut.</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="cek2" value="benar"><span class="big">Benar</span></label>
+        <label class="opt"><input type="radio" name="cek2" value="salah"><span class="big">Salah</span></label>
+      </div>
+      <div class="fb" id="fb-cek2"></div>
+    </div>
+    <button class="btn btn-primary" id="btnCek">Periksa &amp; lanjut ke Latihan →</button>
+  </div>
+</section>
+
+<!-- ============ TAHAP 4 : LATIHAN ============ -->
+<section class="tahap" id="tahap4">
+  <div class="card">
+    <span class="badge apply">Tahap 4 · Mengaplikasi</span>
+    <h2>Terapkan di dunia nyata</h2>
+    <p class="lead">Gunakan rumus temuanmu. Nilai: <span class="score-chip" id="scoreChip">0 / 3</span></p>
+  </div>
+
+  <div class="quiz-q">
+    <p><b>1. Kotak mainan.</b> Sebuah kotak berbentuk balok berukuran 5 × 4 × 3 (satuan cm).
+    Volume kotak = … cm³</p>
+    <input type="number" id="q1" placeholder="jawaban"> <button class="btn btn-ghost" data-check="1">Cek</button>
+    <div class="fb" id="fb-q1"></div>
+  </div>
+  <div class="quiz-q">
+    <p><b>2. Tenda.</b> Tenda berbentuk prisma segitiga siku-siku. Alas segitiganya 6 × 8 dan panjang tenda 10 (satuan m).
+    Volume udara di dalam tenda = … m³</p>
+    <input type="number" id="q2" placeholder="jawaban"> <button class="btn btn-ghost" data-check="2">Cek</button>
+    <div class="fb" id="fb-q2"></div>
+  </div>
+  <div class="quiz-q">
+    <p><b>3. Piramida mini.</b> Piramida mainan berbentuk limas segiempat dengan alas 6 × 6 dan tinggi 9 (satuan cm).
+    Volume piramida = … cm³</p>
+    <input type="number" id="q3" placeholder="jawaban"> <button class="btn btn-ghost" data-check="3">Cek</button>
+    <div class="fb" id="fb-q3"></div>
+  </div>
+
+  <div class="card">
+    <button class="btn btn-primary" id="btnLatDone" disabled>Lanjut ke Refleksi →</button>
+    <div class="hint">Jawab minimal 2 dari 3 soal dengan benar untuk membuka Tahap 5.</div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 5 : REFLEKSI ============ -->
+<section class="tahap" id="tahap5">
+  <div class="card">
+    <span class="badge reflect">Tahap 5 · Merefleksi</span>
+    <h2>Apa yang berubah dalam pikiranmu?</h2>
+    <div id="refleksiVs"></div>
+  </div>
+  <div class="card">
+    <h3>✍️ Simpulan dengan bahasamu sendiri</h3>
+    <p>Jelaskan bagaimana cara menemukan volume <b>prisma</b> dan <b>limas</b> dari volume balok:</p>
+    <textarea id="refTeks" placeholder="Contoh: Volume prisma adalah setengah balok karena …"></textarea>
+  </div>
+  <div class="card">
+    <h3>💛 Seberapa menggembirakan lab ini?</h3>
+    <div class="stars" id="stars"><span data-s="1">★</span><span data-s="2">★</span><span data-s="3">★</span><span data-s="4">★</span><span data-s="5">★</span></div>
+    <div class="btn-row"><button class="btn btn-primary" id="btnFinish">Selesaikan lab 🎉</button></div>
+  </div>
+  <div class="card" id="finishCard" style="display:none">
+    <h3>🎓 Lab selesai!</h3>
+    <div id="finishSum"></div>
+  </div>
+</section>
+</main>
+
+<footer>Lab Bangun Ruang · pembelajaran mendalam: berkesadaran, bermakna, menggembirakan</footer>
+
+<script src="../assets/vendor/three.min.js"></script>
+<script src="../assets/core.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

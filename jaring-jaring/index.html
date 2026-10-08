@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Jaring-Jaring — Lab Bangun Ruang</title>
+<link rel="stylesheet" href="../assets/lab.css">
+<style>
+.net-grid{display:grid;grid-template-columns:repeat(4,64px);gap:8px;justify-content:center;margin:16px 0}
+.net-cell{width:64px;height:64px;border:2px solid #c7d2fe;border-radius:10px;background:#fff;cursor:pointer;font-size:1.4rem;color:#c7d2fe;transition:.15s}
+.net-cell.on{background:#4f46e5;border-color:#4f46e5;color:#fff}
+.gallery{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:12px}
+.gallery .found{border:2px solid #6ee7b7;border-radius:10px;padding:6px;background:#ecfdf5;text-align:center}
+.gallery .found small{display:block;color:#065f46;font-weight:700}
+.solid-pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="back" href="../index.html">‹ Lab Bangun Ruang</a>
+  <div class="brand">📦 Lab <b>Jaring-Jaring</b></div>
+  <div class="sub">kubus · balok · prisma · limas</div>
+</header>
+
+<nav class="stepper" id="stepper">
+  <button class="step active" data-t="1"><span class="n">1</span><span class="t">Prediksi<small>Memahami · Berkesadaran</small></span></button>
+  <button class="step" data-t="2" disabled><span class="n">2</span><span class="t">Eksperimen<small>Memahami · Menggembirakan</small></span></button>
+  <button class="step" data-t="3" disabled><span class="n">3</span><span class="t">Simpulkan<small>Memahami · Bermakna</small></span></button>
+  <button class="step" data-t="4" disabled><span class="n">4</span><span class="t">Latihan<small>Mengaplikasi</small></span></button>
+  <button class="step" data-t="5" disabled><span class="n">5</span><span class="t">Refleksi<small>Merefleksi</small></span></button>
+</nav>
+
+<main>
+<!-- ============ TAHAP 1 : PREDIKSI ============ -->
+<section class="tahap active" id="tahap1">
+  <div class="card">
+    <span class="badge understand">Tahap 1 · Memahami</span>
+    <h2>Buat dugaanmu dulu!</h2>
+    <p class="lead">Jaring-jaring adalah rangkaian bangun datar yang jika dilipat akan membentuk bangun ruang.
+    Sebelum bereksperimen, buat dugaanmu — tidak ada jawaban salah di tahap ini.</p>
+  </div>
+  <div class="card">
+    <h3>Dugaan 1 — Manakah yang <u>bukan</u> jaring-jaring kubus?</h3>
+    <div class="opts" id="pred1box"></div>
+  </div>
+  <div class="card">
+    <h3>Dugaan 2 — Ada berapa jaring-jaring kubus yang berbeda?</h3>
+    <p>Menurut dugaanmu, ada berapa banyak susunan berbeda yang bisa dilipat menjadi kubus?</p>
+    <div class="opts" id="pred2">
+      <label class="opt"><input type="radio" name="p2" value="6"><span class="big">6</span> macam</label>
+      <label class="opt"><input type="radio" name="p2" value="8"><span class="big">8</span> macam</label>
+      <label class="opt"><input type="radio" name="p2" value="11"><span class="big">11</span> macam</label>
+      <label class="opt"><input type="radio" name="p2" value="15"><span class="big">15</span> macam</label>
+    </div>
+  </div>
+  <div class="card">
+    <button class="btn btn-primary" id="btnPrediksi">Simpan dugaanku &amp; mulai eksperimen →</button>
+    <div class="hint">Dugaanmu akan dibandingkan dengan hasil eksperimen di Tahap 3.</div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 2 : EKSPERIMEN ============ -->
+<section class="tahap" id="tahap2">
+  <div class="card">
+    <span class="badge understand">Tahap 2 · Memahami</span>
+    <h2>Eksperimen Jaring-Jaring</h2>
+    <p class="lead">Tiga misi menantimu. Seret kanvas 3D untuk memutar sudut pandang.</p>
+    <div class="exp-pills" id="expPills">
+      <button class="pill active" data-e="a">A · Lipat &amp; buka 3D</button>
+      <button class="pill" data-e="b">B · Misi 11 jaring kubus</button>
+      <button class="pill" data-e="c">C · Tebak jaring</button>
+    </div>
+  </div>
+  <div class="lab-grid">
+    <div class="canvas-wrap" id="canvasWrap" style="display:none">
+      <div class="canvas-tag" id="canvasTag">Lipat &amp; buka 3D</div>
+      <canvas id="c3d"></canvas>
+      <div class="canvas-hint">seret untuk memutar · cubit/scroll untuk zoom</div>
+    </div>
+    <div>
+      <div class="card" id="panelA">
+        <h3>A · Lihat jaring melipat menjadi bangun ruang</h3>
+        <div class="solid-pills" id="solidPills">
+          <button class="pill active" data-s="kubus">Kubus</button>
+          <button class="pill" data-s="balok">Balok</button>
+          <button class="pill" data-s="prisma">Prisma segitiga</button>
+          <button class="pill" data-s="limas">Limas segiempat</button>
+        </div>
+        <p>Geser untuk melipat / membuka:</p>
+        <input type="range" id="foldRange" min="0" max="100" value="0">
+        <div class="kv"><span>Terlipat</span><b id="foldPct">0%</b></div>
+        <div class="kv"><span>Bangun</span><b id="solidName">kubus (s = 3)</b></div>
+        <button class="btn btn-ghost" id="btnADone">Saya paham, lanjut →</button>
+      </div>
+      <div class="card" id="panelB" style="display:none">
+        <h3>B · Misi: temukan 11 jaring kubus! <span class="score-chip" id="foundChip">0 / 11</span></h3>
+        <p>Klik petak untuk merangkai 6 persegi, lalu tekan <b>Cek jaring</b>. Temukan minimal <b>5</b> untuk membuka tahap berikutnya — misi penuhnya 11!</p>
+        <div class="net-grid" id="netGrid"></div>
+        <div class="btn-row">
+          <button class="btn btn-primary" id="btnCheckNet">Cek jaring</button>
+          <button class="btn btn-ghost" id="btnClearNet">Hapus</button>
+        </div>
+        <div class="eval" id="evalNet" style="display:none"><strong id="evalNetT"></strong> <span id="evalNetX"></span></div>
+        <div class="gallery" id="gallery"></div>
+      </div>
+      <div class="card" id="panelC" style="display:none">
+        <h3>C · Tebak: jaring milik bangun apa? <span class="score-chip" id="roundChip">Ronde 1 / 4</span></h3>
+        <div class="diagram" id="guessSvg"></div>
+        <div class="opts" id="guessOpts">
+          <label class="opt"><input type="radio" name="g" value="kubus"><span>Kubus</span></label>
+          <label class="opt"><input type="radio" name="g" value="balok"><span>Balok</span></label>
+          <label class="opt"><input type="radio" name="g" value="prisma"><span>Prisma segitiga</span></label>
+          <label class="opt"><input type="radio" name="g" value="limas"><span>Limas segiempat</span></label>
+        </div>
+        <div class="eval" id="evalGuess" style="display:none"><strong id="evalGuessT"></strong> <span id="evalGuessX"></span></div>
+        <button class="btn btn-primary" id="btnGuess">Kunci jawaban</button>
+      </div>
+      <div class="card">
+        <button class="btn btn-primary" id="btnExpDone" disabled>Lanjut ke Simpulan →</button>
+        <div class="hint" id="expHint">Selesaikan ketiga misi (A: tekan “Saya paham”, B: temukan ≥5 jaring, C: 4 ronde) untuk membuka Tahap 3.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 3 : SIMPULKAN ============ -->
+<section class="tahap" id="tahap3">
+  <div class="card">
+    <span class="badge understand">Tahap 3 · Memahami</span>
+    <h2>Dugaanmu vs Kenyataan</h2>
+    <div id="vsBox"></div>
+  </div>
+  <div class="card">
+    <h3>📐 Konsep yang kita temukan</h3>
+    <div class="formula">Jaring-jaring = <span class="gold">rangkaian bangun datar</span> yang dilipat menjadi bangun ruang</div>
+    <div class="kv"><span>Satu bangun ruang</span><b>bisa punya banyak jaring berbeda (kubus: 11!)</b></div>
+    <div class="kv"><span>Syarat jaring</span><b>persegi/petak saling menempel penuh pada rusuknya</b></div>
+    <div class="kv"><span>Rusuk yang menempel di jaring</span><b>menjadi rusuk yang sama pada bangun ruang</b></div>
+  </div>
+  <div class="card">
+    <h3>🧠 Cek pemahaman cepat</h3>
+    <div class="quiz-q">
+      <p><b>1.</b> Setiap jaring-jaring kubus terdiri dari … persegi yang kongruen.</p>
+      <div class="opts"><label class="opt"><input type="radio" name="cek1" value="5"><span class="big">5</span></label><label class="opt"><input type="radio" name="cek1" value="6"><span class="big">6</span></label><label class="opt"><input type="radio" name="cek1" value="8"><span class="big">8</span></label></div>
+      <div class="fb" id="fb-cek1"></div>
+    </div>
+    <div class="quiz-q">
+      <p><b>2.</b> Dua jaring yang tampak berbeda bisa melipat menjadi kubus yang sama.</p>
+      <div class="opts"><label class="opt"><input type="radio" name="cek2" value="benar"><span class="big">Benar</span></label><label class="opt"><input type="radio" name="cek2" value="salah"><span class="big">Salah</span></label></div>
+      <div class="fb" id="fb-cek2"></div>
+    </div>
+    <button class="btn btn-primary" id="btnCek">Periksa &amp; lanjut ke Latihan →</button>
+  </div>
+</section>
+
+<!-- ============ TAHAP 4 : LATIHAN ============ -->
+<section class="tahap" id="tahap4">
+  <div class="card">
+    <span class="badge apply">Tahap 4 · Mengaplikasi</span>
+    <h2>Terapkan pemahamanmu</h2>
+    <p class="lead">Nilai: <span class="score-chip" id="scoreChip">0 / 3</span></p>
+  </div>
+  <div class="quiz-q">
+    <p><b>1. Sisi berhadapan.</b> Pada jaring kubus bernomor berikut, sisi yang berhadapan dengan sisi <b>2</b> adalah sisi …</p>
+    <div class="diagram" id="q1svg"></div>
+    <input type="number" id="q1" placeholder="nomor sisi" min="1" max="6"> <button class="btn btn-ghost" data-check="1">Cek</button>
+    <div class="fb" id="fb-q1"></div>
+  </div>
+  <div class="quiz-q">
+    <p><b>2. Komposisi jaring balok.</b> Balok berukuran 4 × 3 × 2. Jaring-jaringnya terdiri dari …</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="rq2" value="a"><span>6 persegi panjang 4×3</span></label>
+      <label class="opt"><input type="radio" name="rq2" value="b"><span>2 bh 4×3, 2 bh 4×2, 2 bh 3×2</span></label>
+      <label class="opt"><input type="radio" name="rq2" value="c"><span>3 bh 4×3 dan 3 bh 4×2</span></label>
+    </div>
+    <button class="btn btn-ghost" data-check="2">Cek</button>
+    <div class="fb" id="fb-q2"></div>
+  </div>
+  <div class="quiz-q">
+    <p><b>3. Komposisi jaring limas.</b> Jaring-jaring limas segiempat terdiri dari …</p>
+    <div class="opts">
+      <label class="opt"><input type="radio" name="rq3" value="a"><span>4 persegi dan 1 segitiga</span></label>
+      <label class="opt"><input type="radio" name="rq3" value="b"><span>1 persegi dan 4 segitiga</span></label>
+      <label class="opt"><input type="radio" name="rq3" value="c"><span>2 persegi dan 2 segitiga</span></label>
+    </div>
+    <button class="btn btn-ghost" data-check="3">Cek</button>
+    <div class="fb" id="fb-q3"></div>
+  </div>
+  <div class="card">
+    <button class="btn btn-primary" id="btnLatDone" disabled>Lanjut ke Refleksi →</button>
+    <div class="hint">Jawab minimal 2 dari 3 soal dengan benar untuk membuka Tahap 5.</div>
+  </div>
+</section>
+
+<!-- ============ TAHAP 5 : REFLEKSI ============ -->
+<section class="tahap" id="tahap5">
+  <div class="card">
+    <span class="badge reflect">Tahap 5 · Merefleksi</span>
+    <h2>Apa yang berubah dalam pikiranmu?</h2>
+    <div id="refleksiVs"></div>
+  </div>
+  <div class="card">
+    <h3>✍️ Simpulan dengan bahasamu sendiri</h3>
+    <p>Apa itu jaring-jaring, dan apa hubungan jaring-jaring dengan bangun ruangnya?</p>
+    <textarea id="refTeks" placeholder="Contoh: Jaring-jaring adalah …"></textarea>
+  </div>
+  <div class="card">
+    <h3>💛 Seberapa menggembirakan lab ini?</h3>
+    <div class="stars" id="stars"><span data-s="1">★</span><span data-s="2">★</span><span data-s="3">★</span><span data-s="4">★</span><span data-s="5">★</span></div>
+    <div class="btn-row"><button class="btn btn-primary" id="btnFinish">Selesaikan lab 🎉</button></div>
+  </div>
+  <div class="card" id="finishCard" style="display:none">
+    <h3>🎓 Lab selesai!</h3>
+    <div id="finishSum"></div>
+  </div>
+</section>
+</main>
+
+<footer>Lab Bangun Ruang · pembelajaran mendalam: berkesadaran, bermakna, menggembirakan</footer>
+
+<script src="../assets/vendor/three.min.js"></script>
+<script src="../assets/core.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
