@@ -81,7 +81,12 @@ function makeLabel(text, s){
   g.fillStyle = 'rgba(30,42,90,0.92)';
   if (g.roundRect){ g.beginPath(); g.roundRect(6, 14, 500, 100, 42); g.fill(); }
   else g.fillRect(6, 14, 500, 100);
-  g.fillStyle = '#fff'; g.font = 'bold 42px "Segoe UI", sans-serif';
+  // kecilkan font otomatis sampai teks muat di dalam label
+  let fs = 42;
+  const setF = () => { g.font = 'bold ' + fs + 'px "Segoe UI", sans-serif'; };
+  setF();
+  while (g.measureText(text).width > 460 && fs > 20){ fs -= 2; setF(); }
+  g.fillStyle = '#fff';
   g.textAlign = 'center'; g.textBaseline = 'middle';
   g.fillText(text, 256, 66);
   const sp = new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c), transparent:true, depthTest:false}));
